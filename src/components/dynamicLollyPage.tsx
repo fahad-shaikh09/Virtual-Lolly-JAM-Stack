@@ -1,5 +1,5 @@
 import React from "react"
-import Lolly from '../components/lolly';
+import Lolly from './lolly';
 // import { useQuery } from '@apollo/client';
 // import gql from 'graphql-tag'
 import { graphql } from "gatsby"
@@ -20,24 +20,7 @@ export const query = graphql`
   }
 `
 
-export default function DynamicLollyPage ({ data }) {
-    // const { itemDetails } = pageContext
-    console.log("Data in DynamicLollyPage:", data)
-
-    // const [topColor, settopColor] = useState('#6b6bde');
-    // const [middleColor, setmiddleColor] = useState('#4ac383');
-    // const [bottomColor, setbottomColor] = useState('#d2ec27');
-    // const [fromField, setfromField] = useState('');
-    // const [toField, settoField] = useState('');
-    // const [message, setMessage] = useState('');
-
-    // const { data, loading, error } = useQuery(query, {
-    //     variables: { link: pageContext.link }
-    // })
-    // if (error) {
-    //     console.log("error", error);
-    //     return <h4>error</h4>
-    // }
+export default function DynamicLollyPage ({data}) {
 
     return (
         <div>

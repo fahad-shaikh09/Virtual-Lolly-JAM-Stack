@@ -27,13 +27,13 @@ const typeDefs = gql`
 
   type Mutation {
     addLolly(
-      topColor: String, 
-      middleColor: String, 
-      bottomColor: String, 
-      toField: String, 
-      fromField: String, 
-      message: String,
-      link: String,
+      topColor: String!, 
+      middleColor: String!, 
+      bottomColor: String!, 
+      toField: String!, 
+      fromField: String!, 
+      message: String!,
+      link: String!,
       ): Lolly
   } 
 `
