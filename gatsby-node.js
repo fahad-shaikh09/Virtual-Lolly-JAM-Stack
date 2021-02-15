@@ -1,7 +1,27 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/node-apis/
- */
 
-// You can delete this file if you're not using it
+const path = require(`path`)
+
+exports.createPages = async ({ actions, graphql }) => {
+    
+    const { data } = await graphql(`
+    query MyQuery {
+        LOLLIES {
+          getAllLollies {
+          link
+          }
+        }
+      }
+      `)
+      
+    console.log(data)
+
+  data.LOLLIES.getAllLollies.forEach(({ link }) => {
+    actions.createPage({
+      path: `lollies/${link}`,
+      component: path.resolve(`./src/components/DynamicLollyPage.tsx`),
+      context: {
+        link: link,
+      },
+    })
+  })
+}

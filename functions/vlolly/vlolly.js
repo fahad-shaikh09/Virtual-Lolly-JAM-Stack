@@ -11,7 +11,7 @@ var adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SERVER_SECRET
 const typeDefs = gql`
   type Query {
     hello: String
-    getAllLollies: [Lolly]
+    getAllLollies: [Lolly]!
     GetLollyByLink(link: String!): Lolly
   }
 
@@ -40,7 +40,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello: (root, args, context) => {
+    hello: () => {
       return 'Hello, world!'
     },
     getAllLollies: async () => {
