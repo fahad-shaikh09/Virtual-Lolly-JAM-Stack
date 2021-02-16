@@ -1,7 +1,5 @@
 import React from "react"
 import Lolly from './lolly';
-// import { useQuery } from '@apollo/client';
-// import gql from 'graphql-tag'
 import { graphql } from "gatsby"
 
 export const query = graphql`
@@ -20,8 +18,8 @@ export const query = graphql`
   }
 `
 
-export default function DynamicLollyPage ({data}) {
-
+export default function DynamicLollyPage({ data }) {
+  console.log("data in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", data)
     return (
         <div>
             {/* <h2>topColor: {itemDetails.topColor}</h2>
@@ -33,9 +31,9 @@ export default function DynamicLollyPage ({data}) {
             <h2>link: {itemDetails.link} </h2> */}
 
             <div>
-                <h4>Share this link with your friend</h4>
+                <h1>Share this link with your friend</h1>
                 {/* <a href={`${baseUrl}/lollies/${data.GetLollyByLink.link}`}>Go to Link</a> */}
-                <p>https://virtual-lolly-byfahad.netlify.app/lollies/{`${data.LOLLIES.GetLollyByLink.link}`}</p>
+                <h2>https://virtual-lolly-byfahad.netlify.app/lollies/{`${data.LOLLIES.GetLollyByLink.link}`}</h2>
             </div>
 
 
@@ -46,9 +44,9 @@ export default function DynamicLollyPage ({data}) {
             />
 
             <div >
-                <h1>to: {data.LOLLIES.GetLollyByLink.toField}</h1>
-                <p>{data.LOLLIES.GetLollyByLink.message}</p>
-                <h3>From: {data.LOLLIES.GetLollyByLink.fromField}</h3>
+                <h1>To: {data.LOLLIES.GetLollyByLink.toField}</h1>
+                <h1>Message: {data.LOLLIES.GetLollyByLink.message}</h1>
+                <h1>From: {data.LOLLIES.GetLollyByLink.fromField}</h1>
             </div>
         </div>
     )

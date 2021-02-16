@@ -15,6 +15,7 @@ const GET_VLOLLY = gql`
       toField
       fromField
       message
+      link
     }
   }
 `
@@ -27,7 +28,8 @@ const ADD_LOLLY = gql`
     $toField: String!,
     $fromField: String!,
     $message: String!,
-    $link: String!){
+    $link: String!,
+    ){
     addLolly(topColor: $topColor, middleColor: $middleColor, bottomColor: $bottomColor, toField: $toField, fromField: $fromField, message: $message, link: $link){
       topColor,
       middleColor,
@@ -50,7 +52,7 @@ export default function Home() {
   const [toField, SetToField] = useState("");
   const [fromField, SetFromField] = useState("");
   const [message, SetMessage] = useState("");
-  const link = shortId.generate();
+  var id = shortId.generate();
 
 
   const { error, loading, data } = useQuery(GET_VLOLLY)
@@ -60,13 +62,7 @@ export default function Home() {
   console.log("Error in UI:", error)
 
   const handleSubmit = () => {
-    // console.log("To:", toField);
-    // console.log("From:", fromField);
-    // console.log("Message:", message);
-    // console.log("topColor:", topColor)
-    // console.log("middleColor:", middleColor)
-    // console.log("bottomColor:", bottomColor)
-
+    
     addLolly({
       variables: {
         topColor,
@@ -75,12 +71,12 @@ export default function Home() {
         toField,
         fromField,
         message,
-        link,
+        link:id,
       },
       refetchQueries: [{ query: GET_VLOLLY }]
     }
     )
-    navigate(`/lollies/${link}`);
+    navigate(`/lollies/${id}`);
 
   }
   if (loading) return <h1>Loading...</h1>

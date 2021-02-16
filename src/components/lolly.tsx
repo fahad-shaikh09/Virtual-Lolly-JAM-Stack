@@ -1,10 +1,16 @@
 import React from "react";
 
-const Lolly = ({topColor,middleColor,bottomColor}) => {
+export interface props {
+    topColor?: string
+    middleColor?: string
+    bottomColor?: string
+    style?: string
+  }
+const Lolly = (props:props) => {
     return (
         <div>
             <svg
-                className="lollipop"
+                className="props.style"
                 width="163px"
                 height="431px"
                 viewBox="0 0 163 431"
@@ -31,7 +37,7 @@ const Lolly = ({topColor,middleColor,bottomColor}) => {
                         >
                             <rect
                                 id="Rectangle"
-                                fill="#C06C50"
+                                fill={props.topColor}
                                 x={0}
                                 y={2}
                                 width={32}
@@ -40,7 +46,7 @@ const Lolly = ({topColor,middleColor,bottomColor}) => {
                             />
                             <rect
                                 id="Rectangle"
-                                fill="#E3A28D"
+                                fill={props.middleColor}
                                 x={0}
                                 y={0}
                                 width={32}
@@ -50,7 +56,7 @@ const Lolly = ({topColor,middleColor,bottomColor}) => {
                             <polygon
                                 id="Rectangle-Copy-3"
                                 fillOpacity="0.181584013"
-                                fill="#8C0040"
+                                fill={props.bottomColor}
                                 points="0 200 32 200 32 218 0 223.801515"
                             />
                         </g>
@@ -59,13 +65,13 @@ const Lolly = ({topColor,middleColor,bottomColor}) => {
                         </mask>
                         <use
                             className="lollyBottom"
-                            fill={bottomColor}
+                            fill={props.bottomColor}
                             fillRule="nonzero"
                             xlinkHref="#path-1"
                         />
                         <rect
                             className="lollyTop"
-                            fill={topColor}
+                            fill={props.topColor}
                             fillRule="nonzero"
                             mask="url(#mask-2)"
                             x={-25}
@@ -75,7 +81,7 @@ const Lolly = ({topColor,middleColor,bottomColor}) => {
                         />
                         <rect
                             className="lollyMiddle"
-                            fill={middleColor}
+                            fill={props.middleColor}
                             fillRule="nonzero"
                             mask="url(#mask-2)"
                             x={-29}
@@ -134,3 +140,9 @@ const Lolly = ({topColor,middleColor,bottomColor}) => {
 }
 
 export default Lolly
+
+Lolly.defaultProps = {
+    lollyTop: "#d52368",
+    lollyMid: "#e95946",
+    lollyBot: "#deaa10",
+  }

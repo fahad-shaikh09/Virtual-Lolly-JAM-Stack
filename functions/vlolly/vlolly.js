@@ -68,16 +68,17 @@ const resolvers = {
         console.log("error from function:", err)
       }
     },
-    GetLollyByLink: async (_, { link }) => {
-      console.log("Link:", link)
+    GetLollyByLink: async (_, args) => {
+      console.log("Link>>>>>>>>>>>>>>>:", link)
       try {
         const result = await adminClient.query(
-          q.Get(q.Match(q.Index("Lolly_by_path"), link))
+          q.Get(q.Match(q.Index("Lolly_by_path"), args.link))
         )
         console.log(" result.data in GetLollyByLink query ==>>", result.data)
         return result.data
       } catch (err) {
         console.log("error from function>>>>>:", err)
+        return err.toString()
       }
       // return Lolly
     },

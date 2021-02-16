@@ -7,7 +7,7 @@ exports.createPages = async ({ actions, graphql }) => {
     query MyQuery {
         LOLLIES {
           getAllLollies {
-          link
+            link
           }
         }
       }
@@ -15,7 +15,7 @@ exports.createPages = async ({ actions, graphql }) => {
       
     console.log("Data in gatsby-node.js >>>>>>>>>>>>>>>>:", data)
 
-  data.LOLLIES.getAllLollies.forEach(({link}) => {
+  data.LOLLIES.getAllLollies.forEach(({ link }) => {
     actions.createPage({
       path: `lollies/${link}`,
       component: path.resolve(`./src/components/dynamicLollyPage.tsx`),
