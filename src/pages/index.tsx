@@ -62,6 +62,7 @@ export default function Home() {
   console.log("Error in UI:", error)
 
   const handleSubmit = () => {
+    refetchQueries: [{ query: GET_VLOLLY }]
     
     addLolly({
       variables: {

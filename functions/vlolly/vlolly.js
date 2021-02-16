@@ -68,11 +68,11 @@ const resolvers = {
         console.log("error from function:", err)
       }
     },
-    GetLollyByLink: async (_, args) => {
+    GetLollyByLink: async (link) => {
       console.log("Link>>>>>>>>>>>>>>>:", link)
       try {
         const result = await adminClient.query(
-          q.Get(q.Match(q.Index("Lolly_by_path"), args.link))
+          q.Get(q.Match(q.Index("Lolly_by_path"), link))
         )
         console.log(" result.data in GetLollyByLink query ==>>", result.data)
         return result.data
@@ -80,7 +80,6 @@ const resolvers = {
         console.log("error from function>>>>>:", err)
         return err.toString()
       }
-      // return Lolly
     },
   },
     Mutation:{
