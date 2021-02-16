@@ -18,8 +18,14 @@ export const query = graphql`
   }
 `
 
-export default function DynamicLollyPage({ data }) {
-  console.log("data in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", data)
+export default function DynamicLollyPage({pageContext: {topColor, middleColor, bottomColor, toField, fromField, message,link }}) {
+  console.log("topColor in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", topColor)
+  console.log("middleColor in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", middleColor)
+  console.log("bottomColor in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", bottomColor)
+  console.log("toField in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", toField)
+  console.log("fromField in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", fromField)
+  console.log("message in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", message)
+  console.log("link in dynamic page >>>>>>>>>>>>>>>>>>>>>>:", link)
     return (
         <div>
             {/* <h2>topColor: {itemDetails.topColor}</h2>
@@ -33,20 +39,20 @@ export default function DynamicLollyPage({ data }) {
             <div>
                 <h1>Share this link with your friend</h1>
                 {/* <a href={`${baseUrl}/lollies/${data.GetLollyByLink.link}`}>Go to Link</a> */}
-                <h2>https://virtual-lolly-byfahad.netlify.app/lollies/{`${data.LOLLIES.GetLollyByLink.link}`}</h2>
+                <h2>https://virtual-lolly-byfahad.netlify.app/lollies/{`${link}`}</h2>
             </div>
 
 
             <Lolly
-                topColor={data.LOLLIES.GetLollyByLink.topColor}
-                middleColor={data.LOLLIES.GetLollyByLink.middleColor}
-                bottomColor={data.LOLLIES.GetLollyByLink.bottomColor}
+                topColor={topColor}
+                middleColor={middleColor}
+                bottomColor={bottomColor}
             />
 
             <div >
-                <h1>To: {data.LOLLIES.GetLollyByLink.toField}</h1>
-                <h1>Message: {data.LOLLIES.GetLollyByLink.message}</h1>
-                <h1>From: {data.LOLLIES.GetLollyByLink.fromField}</h1>
+                <h1>To: {toField}</h1>
+                <h1>Message: {message}</h1>
+                <h1>From: {fromField}</h1>
             </div>
         </div>
     )
