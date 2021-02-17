@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import Lolly from "../components/lolly"
 import "./../../styles/main.css"
-import { useQuery, useMutation } from "@apollo/client"
-import gql from "graphql-tag"
+import { useQuery, useMutation, gql } from "@apollo/client"
+// import gql from "graphql-tag"
 import { navigate } from 'gatsby'
-import shortId from "shortid";
+import shortid from "shortid";
 
 const GET_VLOLLY = gql`
   {
@@ -52,7 +52,30 @@ export default function Home() {
   const [toField, SetToField] = useState("");
   const [fromField, SetFromField] = useState("");
   const [message, SetMessage] = useState("");
-  var id = shortId.generate();
+  var id = shortid.generate();
+
+  const handleSubmit = async () => {
+    
+    //FUNCTION DEFINATION
+    const submitLolly = async () => {
+      const result = await addLolly({
+        variables: {
+          topColor,
+          middleColor,
+          bottomColor,
+          toField,
+          fromField,
+          message,
+          link: id,
+        },
+        refetchQueries: [{ query: GET_VLOLLY }]
+      }
+      )
+    }
+
+    submitLolly();
+    await navigate(`/lollies/${id}`);
+  }
 
 
   const { error, loading, data } = useQuery(GET_VLOLLY)
@@ -61,25 +84,7 @@ export default function Home() {
   console.log("Data in UI:", data)
   console.log("Error in UI:", error)
 
-  const handleSubmit = () => {
-    refetchQueries: [{ query: GET_VLOLLY }]
-    
-    addLolly({
-      variables: {
-        topColor,
-        middleColor,
-        bottomColor,
-        toField,
-        fromField,
-        message,
-        link:id,
-      },
-      refetchQueries: [{ query: GET_VLOLLY }]
-    }
-    )
-    navigate(`/lollies/${id}`);
 
-  }
   if (loading) return <h1>Loading...</h1>
   if (error) return <h1> {error}</h1>
 
@@ -97,7 +102,7 @@ export default function Home() {
 
       <div className="form">
         <input type="text" placeholder="To:" onChange={e => SetToField(e.target.value)} />
-        <textarea placeholder="Enter Message!" rows={20}  onChange={e => SetMessage(e.target.value)} />
+        <textarea placeholder="Enter Message!" rows={20} onChange={e => SetMessage(e.target.value)} />
         <input type="text" placeholder="From:" onChange={e => SetFromField(e.target.value)} />
 
         <button onClick={handleSubmit} >Send</button>
