@@ -52,7 +52,7 @@ const resolvers = {
             q.Lambda(x => q.Get(x))
           )
         )
-        console.log(" result.data in vlolly function.js ==>>", result.data)
+        // console.log(" result.data in vlolly function.js >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", result.data)
         return result.data.map(d => {
           return {
             link: d.data.link,
@@ -68,13 +68,13 @@ const resolvers = {
         console.log("error from function:", err)
       }
     },
-    GetLollyByLink: async (link) => {
-      console.log("Link>>>>>>>>>>>>>>>:", link)
+    GetLollyByLink: async (_, args) => {
+      // console.log("Link>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:", link)
       try {
         const result = await adminClient.query(
-          q.Get(q.Match(q.Index("Lolly_by_path"), link))
+          q.Get(q.Match(q.Index("Lolly_by_path"), args.link))
         )
-        console.log(" result.data in GetLollyByLink query ==>>", result.data)
+        // console.log(" result.data in GetLollyByLink query ==>>", result.data)
         return result.data
       } catch (err) {
         console.log("error from function>>>>>:", err)
@@ -105,17 +105,17 @@ const resolvers = {
           axios
             .post("https://api.netlify.com/build_hooks/602406755f22ff683c0215ad")
             .then(function (response) {
-              console.log(response)
+              // console.log("response after posting data through axios >>>>>>>>>>>>>>>>>>>>>>: ", response)
             })
             .catch(function (error) {
               console.error(error)
             })
   
-          console.log(result)
+          console.log("result in add mutation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", result)
           return result.data
         }
         catch (err) {
-          console.log("error in mutation addLolly===========", err)
+          console.log("error in mutation addLolly=====>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>======", err)
         }
   
       }

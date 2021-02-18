@@ -4,6 +4,7 @@ import "./../../styles/main.css"
 import { useQuery, useMutation, gql } from "@apollo/client"
 // import gql from "graphql-tag"
 import { navigate } from 'gatsby'
+// import { Link } from 'gatsby';
 import shortid from "shortid";
 
 const GET_VLOLLY = gql`
@@ -55,28 +56,27 @@ export default function Home() {
   var id = shortid.generate();
 
   const handleSubmit = async () => {
-    
-    //FUNCTION DEFINATION
-    const submitLolly = async () => {
-      const result = await addLolly({
-        variables: {
-          topColor,
-          middleColor,
-          bottomColor,
-          toField,
-          fromField,
-          message,
-          link: id,
-        },
-        refetchQueries: [{ query: GET_VLOLLY }]
-      }
-      )
-    }
+    // console.log("To:", toField);
+    // console.log("From:", fromField);
+    // console.log("Message:", message);
+    // console.log("topColor:", topColor)
+    // console.log("middleColor:", middleColor)
+    // console.log("bottomColor:", bottomColor)
 
-    submitLolly();
+    addLolly({
+      variables: {
+        topColor,
+        middleColor,
+        bottomColor,
+        toField,
+        fromField,
+        message,
+        link:id,
+      },
+      refetchQueries: [{ query: GET_VLOLLY }]
+    })
     await navigate(`/lollies/${id}`);
   }
-
 
   const { error, loading, data } = useQuery(GET_VLOLLY)
   const [addLolly] = useMutation(ADD_LOLLY)
@@ -105,8 +105,10 @@ export default function Home() {
         <textarea placeholder="Enter Message!" rows={20} onChange={e => SetMessage(e.target.value)} />
         <input type="text" placeholder="From:" onChange={e => SetFromField(e.target.value)} />
 
-        <button onClick={handleSubmit} >Send</button>
+        <button onClick={()=> handleSubmit()} >Send</button>
       </div>
+
+
     </div>
   </div>
 }

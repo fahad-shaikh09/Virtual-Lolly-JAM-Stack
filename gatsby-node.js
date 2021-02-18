@@ -7,29 +7,34 @@ exports.createPages = async ({ actions, graphql }) => {
     query MyQuery {
         LOLLIES {
             getAllLollies {
-             link
+              topColor
+              middleColor
+              bottomColor
+              link
+              message
+              toField
+              fromField
             }
         }
       }
       `)
 
-  console.log("data in gatsby-node.js >>>>>>>>>>>>>>>>>>>>>>>>>:", data)
+  console.log("data in gatsby-node.js >>>>>>>>>>>>>>>>>>>>>>>>>:", data.LOLLIES.getAllLollies)
 
-  data.LOLLIES.getAllLollies.forEach(({ link }) => {
+  data.LOLLIES.getAllLollies.forEach((node) => {
     actions.createPage({
-      path: `lollies/${link}`,
+      path: `lollies/${node.link}`,
       component: path.resolve(`./src/templates/dynamicLollyPage.tsx`),
-      context: {
-         link: link,
-      }
+      context: node
     })
   })
 }
-exports.onCreatePage = async ({ page, actions }) => {
-  const { createPage } = actions;
 
-  if (page.path.match(/^\/lollies/)) {
-    page.matchPath = "/lollies/*";
-    createPage(page);
-  }
-};
+// exports.onCreatePage = async ({ page, actions }) => {
+//   const { createPage } = actions;
+
+//   if (page.path.match(/^\/`lollies/)) {
+//     page.matchPath = "/lollies/*";
+//     createPage(page);
+//   }
+// };
