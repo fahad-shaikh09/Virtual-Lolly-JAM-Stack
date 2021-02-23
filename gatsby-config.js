@@ -39,5 +39,6 @@ module.exports = {
       url: "https://virtual-lolly-byFahad.netlify.app/.netlify/functions/vlolly",
     },
   },
+  
   ],
 }
