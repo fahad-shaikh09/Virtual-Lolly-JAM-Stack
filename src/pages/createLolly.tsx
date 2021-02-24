@@ -109,7 +109,7 @@ export default function Home() {
         <button onClick={()=> handleSubmit()} >Send</button>
       </div>
      
-      <Result link={data?.getLollies[0]?.link} fromField={data?.getLollies[0]?.fromField} toField={data?.getLollies[0]?.toField} message={data?.getLollies[0]?.message} />
+      <Result link={data?.getAllLollies[0]?.link} fromField={data?.getAllLollies[0]?.fromField} toField={data?.getAllLollies[0]?.toField} message={data?.getAllLollies[0]?.message} />
 
 
     </div>
