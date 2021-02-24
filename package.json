@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@apollo/client": "^3.3.8",
+    "apollo-server-lambda": "^2.21.0",
     "faunadb": "^4.0.3",
     "gatsby": "^2.32.3",
     "gatsby-plugin-manifest": "^2.12.0",
