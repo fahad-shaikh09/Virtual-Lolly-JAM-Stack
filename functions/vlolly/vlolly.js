@@ -89,7 +89,7 @@ const resolvers = {
   
           const result = await adminClient.query(
             q.Create(
-              q.Collection("get_lollies"), {
+              q.Collection("LOLLIES"), {
               data: {
                 topColor,
                 middleColor,

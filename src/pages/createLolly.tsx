@@ -82,8 +82,8 @@ export default function Home() {
   const { error, loading, data } = useQuery(GET_VLOLLY)
   const [addLolly] = useMutation(ADD_LOLLY)
 
-  console.log("Data in UI:", data)
-  console.log("Error in UI:", error)
+  console.log("Data in CreateLolly page:", data)
+  console.log("Error in CreateLolly page:", error)
 
 
   if (loading) return <h1>Loading...</h1>
@@ -109,7 +109,7 @@ export default function Home() {
         <button onClick={()=> handleSubmit()} >Send</button>
       </div>
      
-      <Result link={data?.addLolly?.link} fromField={data?.addLolly?.fromField} toField={data?.addLolly?.toField} message={data?.addLolly?.message} />
+      <Result link={data?.getLollies[0]?.link} fromField={data?.getLollies[0]?.fromField} toField={data?.getLollies[0]?.toField} message={data?.getLollies[0]?.message} />
 
 
     </div>
