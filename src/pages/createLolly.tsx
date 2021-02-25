@@ -118,7 +118,9 @@ export default function Home() {
 
       submitLollyForm()
       setUpdated(true)
+      console.log("arrayLength before >>>>>>>>>>: ", arrayLength)
       ++arrayLength;
+      console.log("arrayLength after >>>>>>>>>>: ", arrayLength)
       // navigate(`/lollies/${id}`)
     },
   })
