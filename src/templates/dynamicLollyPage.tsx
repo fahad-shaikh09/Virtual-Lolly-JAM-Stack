@@ -25,38 +25,40 @@ import faunadb from "faunadb"
 const DynamicLollyPage = ({ pageContext: { topColor, middleColor, bottomColor, toField, message, fromField, link } }) => {
   // console.log("pageContext in DynamicLollyPage >>>>>>>:", pageContext)
   
-  useEffect(() => {
-    console.log("useEffect")
-    var faunadb = require("faunadb")
-    var q = faunadb.query
-    var adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SERVER_SECRET })
-    const getAllLollies = async () => {
-      try {
-        var adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SERVER_SECRET })
-        const result = await adminClient.query(
-          q.Map(
-            q.Paginate(q.Match(q.Index('allLollies'))),  //allLollies is index in faunadb
-            q.Lambda(x => q.Get(x))
-          )
-        )
-        // console.log(" result.data in vlolly function.js >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", result.data)
-        return result.data.map(d => {
-          return {
-            link: d.data.link,
-            topColor: d.data.topColor,
-            middleColor: d.data.middleColor,
-            bottomColor: d.data.bottomColor,
-            toField: d.data.toField,
-            fromField: d.data.fromField,
-            message: d.data.message,
-          }
-        })
-      } catch (err) {
-        console.log("error from function:", err)
-      }
-    }
-    getAllLollies();
-  }, [])
+  // useEffect(() => {
+  //   console.log("useEffect")
+  //   var faunadb = require("faunadb")
+  //   var q = faunadb.query
+  //   var adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SERVER_SECRET })
+    
+    
+  //   const getAllLollies = async () => {
+  //     try {
+  //       var adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SERVER_SECRET })
+  //       const result = await adminClient.query(
+  //         q.Map(
+  //           q.Paginate(q.Match(q.Index('allLollies'))),  //allLollies is index in faunadb
+  //           q.Lambda(x => q.Get(x))
+  //         )
+  //       )
+  //       // console.log(" result.data in vlolly function.js >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", result.data)
+  //       return result.data.map(d => {
+  //         return {
+  //           link: d.data.link,
+  //           topColor: d.data.topColor,
+  //           middleColor: d.data.middleColor,
+  //           bottomColor: d.data.bottomColor,
+  //           toField: d.data.toField,
+  //           fromField: d.data.fromField,
+  //           message: d.data.message,
+  //         }
+  //       })
+  //     } catch (err) {
+  //       console.log("error from function:", err)
+  //     }
+  //   }
+  //   getAllLollies();
+  // }, [])
 
 
 
