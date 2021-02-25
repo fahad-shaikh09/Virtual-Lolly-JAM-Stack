@@ -251,8 +251,8 @@ export default function Home() {
           </button>
         </form>
      
-      <Result link={data?.getAllLollies[0]?.link} fromField={data?.getAllLollies[0]?.fromField} toField={data?.getAllLollies[0]?.toField} message={data?.getAllLollies[0]?.message} />
-
+      {/* <Result link={data?.getAllLollies[0]?.link} fromField={data?.getAllLollies[0]?.fromField} toField={data?.getAllLollies[0]?.toField} message={data?.getAllLollies[0]?.message} /> */}
+      <Result link={data?.addLolly?.link} fromField={data?.addLolly?.fromField} toField={data?.addLolly?.toField} message={data?.addLolly?.message} />
 
     </div>
 }
