@@ -9,6 +9,8 @@ export interface ResultProps {
 const Result: React.FC<ResultProps> = ({ link, fromField, message, toField }) => {
     return (
         <div className="result">
+            <br></br>
+
             <h4>Share lolly with this link:</h4>
             <h3>{`https://virtual-lolly-byfahad.netlify.app/lollies/${link}`}</h3>
             <div className="resultCard">
@@ -16,8 +18,10 @@ const Result: React.FC<ResultProps> = ({ link, fromField, message, toField }) =>
                 <p className="message">Message:{message}</p>
                 <p className="toField">From:{toField}</p>
             </div>
+            <br></br>
+
             <button onClick={() => navigate("/")}> Go Back</button>
-      
+
         </div>
     )
 }

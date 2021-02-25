@@ -54,6 +54,7 @@ export default function Home() {
   const [topColor, setTopColor] = useState("black")
   const [middleColor, setMiddleColor] = useState("white")
   const [bottomColor, setBottomColor] = useState("red")
+  const [updated,setUpdated] = useState(false)
   // const [toField, SetToField] = useState("");
   // const [fromField, SetFromField] = useState("");
   // const [message, SetMessage] = useState("");
@@ -111,11 +112,13 @@ export default function Home() {
             bottomColor: bottomColor,
             link: id,
           },
+          refetchQueries: [{ query: GET_VLOLLY }]
         })
       }
 
       submitLollyForm()
-
+      setUpdated(true)
+      ++arrayLength;
       // navigate(`/lollies/${id}`)
     },
   })
@@ -129,6 +132,8 @@ export default function Home() {
 
   if (loading) return <h1>Loading...</h1>
   if (error) return <h1> {error}</h1>
+
+  var arrayLength = data.getAllLollies.length
 
   return <div className="container">
     <h1>Virtual Lolly</h1>
@@ -209,6 +214,8 @@ export default function Home() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
+     <br></br> 
+     <br></br> 
 
           <label className="formLabel" htmlFor="msg">
             Message:{" "}
@@ -227,6 +234,8 @@ export default function Home() {
             cols={30}
             rows={15}
           />
+     <br></br> 
+     <br></br> 
 
           <label className="formLabel" htmlFor="Recname">
             {" "}
@@ -245,14 +254,17 @@ export default function Home() {
             name="fromField"
             id="fromField"
           />
+     <br></br> 
+     <br></br> 
 
           <button className="submitButton" type="submit">
             Send
           </button>
         </form>
-     
+     <br></br>
+     <br></br>
       {/* <Result link={data?.getAllLollies[0]?.link} fromField={data?.getAllLollies[0]?.fromField} toField={data?.getAllLollies[0]?.toField} message={data?.getAllLollies[0]?.message} /> */}
-      <Result link={data?.addLolly?.link} fromField={data?.addLolly?.fromField} toField={data?.addLolly?.toField} message={data?.addLolly?.message} />
+     {updated && <Result link={data?.getAllLollies[arrayLength-1]?.link } fromField={data?.getAllLollies[arrayLength-1]?.fromField} toField={data?.getAllLollies[arrayLength-1]?.toField} message={data?.getAllLollies[arrayLength-1]?.message}  />  }
 
     </div>
 }
