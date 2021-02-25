@@ -7,6 +7,9 @@ import { navigate } from 'gatsby'
 // import { Link } from 'gatsby';
 import shortid from "shortid";
 import Result from "./../components/Result"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+
 
 export const GET_VLOLLY = gql`
   {
@@ -48,15 +51,15 @@ export const ADD_LOLLY = gql`
 
 export default function Home() {
 
-  const [topColor, setTopColor] = useState("#deaa10")
-  const [middleColor, setMiddleColor] = useState("#e95946")
-  const [bottomColor, setBottomColor] = useState("#d52368")
-  const [toField, SetToField] = useState("");
-  const [fromField, SetFromField] = useState("");
-  const [message, SetMessage] = useState("");
-  var id = shortid.generate();
+  const [topColor, setTopColor] = useState("black")
+  const [middleColor, setMiddleColor] = useState("white")
+  const [bottomColor, setBottomColor] = useState("red")
+  // const [toField, SetToField] = useState("");
+  // const [fromField, SetFromField] = useState("");
+  // const [message, SetMessage] = useState("");
+  // var id = shortid.generate();
 
-  const handleSubmit = async () => {
+  // const handleSubmit = async () => {
     // console.log("To:", toField);
     // console.log("From:", fromField);
     // console.log("Message:", message);
@@ -64,20 +67,58 @@ export default function Home() {
     // console.log("middleColor:", middleColor)
     // console.log("bottomColor:", bottomColor)
 
-    addLolly({
-      variables: {
-        topColor,
-        middleColor,
-        bottomColor,
-        toField,
-        fromField,
-        message,
-        link:id,
-      },
-      refetchQueries: [{ query: GET_VLOLLY }]
-    })
+    // addLolly({
+    //   variables: {
+    //     topColor,
+    //     middleColor,
+    //     bottomColor,
+    //     toField,
+    //     fromField,
+    //     message,
+    //     link:id,
+    //   },
+    //   refetchQueries: [{ query: GET_VLOLLY }]
+    // })
     // await navigate(`/lollies/${id}`);
-  }
+  // }
+
+  const formik = useFormik({
+    initialValues: {
+      fromField: "",
+      toField: "",
+      message: "",
+    },
+    validationSchema: Yup.object({
+      fromField: Yup.string()
+        .required("Required")
+        .max(15, "Must be 15 characters or less"),
+      toField: Yup.string()
+        .required("Required")
+        .max(15, "Must be 15 characters or less"),
+      message: Yup.string().required("Required"),
+    }),
+    onSubmit: values => {
+      const id = shortid.generate()
+
+      const submitLollyForm = async () => {
+        const result = await addLolly({
+          variables: {
+            fromField: values.fromField,
+            toField: values.toField,
+            message: values.message,
+            topColor: topColor,
+            middleColor: middleColor,
+            bottomColor: bottomColor,
+            link: id,
+          },
+        })
+      }
+
+      submitLollyForm()
+
+      navigate(`/lollies/${id}`)
+    },
+  })
 
   const { error, loading, data } = useQuery(GET_VLOLLY)
   const [addLolly] = useMutation(ADD_LOLLY)
@@ -95,24 +136,124 @@ export default function Home() {
     <div className="box">
       <Lolly topColor={topColor} middleColor={middleColor} bottomColor={bottomColor} />
 
-      <div className="inputBoxes">
+      {/* <div className="inputBoxes">
         <input className="singleBox" type="color" value={topColor} onChange={e => setTopColor(e.target.value)} />
         <input className="singleBox" type="color" value={middleColor} onChange={e => setMiddleColor(e.target.value)} />
         <input className="singleBox" type="color" value={bottomColor} onChange={e => setBottomColor(e.target.value)} />
-      </div>
+      </div> */}
 
-      <div className="form">
+<div className="colorSelectorContainer">
+            <label htmlFor="topFlavor" className="colorPickerLabel">
+              <input
+                className="colorPicker"
+                value={topColor}
+                type="color"
+                name="topFlavor"
+                id="topFlavor"
+                onChange={e => {
+                  setTopColor(e.target.value)
+                }}
+              ></input>
+            </label>
+
+            <label htmlFor="midFlavor" className="colorPickerLabel">
+              <input
+                className="colorPicker"
+                value={middleColor}
+                type="color"
+                name="midFlavor"
+                id="midFlavor"
+                onChange={e => {
+                  setMiddleColor(e.target.value)
+                }}
+              ></input>
+            </label>
+
+            <label htmlFor="botFlavor" className="colorPickerLabel">
+              <input
+                className="colorPicker"
+                value={bottomColor}
+                type="color"
+                name="botFlavor"
+                id="botFlavor"
+                onChange={e => {
+                  setBottomColor(e.target.value)
+                }}
+              ></input>
+            </label>
+          </div>
+        </div>
+
+      {/* <div className="form">
         <input type="text" placeholder="To:" onChange={e => SetToField(e.target.value)} />
         <textarea placeholder="Enter Message!" rows={20} onChange={e => SetMessage(e.target.value)} />
         <input type="text" placeholder="From:" onChange={e => SetFromField(e.target.value)} />
 
         <button onClick={()=> handleSubmit()} >Send</button>
-      </div>
+      </div> */}
+
+<form className="formContainer" onSubmit={formik.handleSubmit}>
+          <label className="formLabel" htmlFor="sendName">
+            To:
+          </label>
+          <div className="formErrors">
+            {formik.errors.toField && formik.touched.toField
+              ? formik.errors.toField
+              : null}
+          </div>
+          <input
+            className="inputText"
+            type="text"
+            name="toField"
+            id="toField"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+
+          <label className="formLabel" htmlFor="msg">
+            Message:{" "}
+          </label>
+          <div className="formErrors">
+            {formik.errors.message && formik.touched.message
+              ? formik.errors.message
+              : null}
+          </div>
+          <textarea
+            id="message"
+            name="message"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            className="inputTextBox"
+            cols={30}
+            rows={15}
+          />
+
+          <label className="formLabel" htmlFor="Recname">
+            {" "}
+            From:{" "}
+          </label>
+          <div className="formErrors">
+            {formik.errors.fromField && formik.touched.fromField
+              ? formik.errors.fromField
+              : null}
+          </div>
+          <input
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            className="inputText"
+            type="text"
+            name="fromField"
+            id="fromField"
+          />
+
+          <button className="submitButton" type="submit">
+            Send
+          </button>
+        </form>
      
       <Result link={data?.getAllLollies[0]?.link} fromField={data?.getAllLollies[0]?.fromField} toField={data?.getAllLollies[0]?.toField} message={data?.getAllLollies[0]?.message} />
 
 
     </div>
-  </div>
 }
 
