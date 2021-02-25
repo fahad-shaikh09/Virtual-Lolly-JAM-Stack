@@ -116,7 +116,7 @@ export default function Home() {
 
       submitLollyForm()
 
-      navigate(`/lollies/${id}`)
+      // navigate(`/lollies/${id}`)
     },
   })
 
