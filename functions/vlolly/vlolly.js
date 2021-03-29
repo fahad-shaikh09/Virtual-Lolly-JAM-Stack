@@ -103,7 +103,7 @@ const resolvers = {
             )
           )
           axios
-            .post("https://api.netlify.com/build_hooks/602406755f22ff683c0215ad")
+            .post("https://api.netlify.com/build_hooks/6061aff8baa0359b9ca6a610")
             .then(function (response) {
               // console.log("response after posting data through axios >>>>>>>>>>>>>>>>>>>>>>: ", response)
             })
