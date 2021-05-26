@@ -12,7 +12,7 @@ import * as Yup from "yup"
 
 
 export const GET_VLOLLY = gql`
-  {
+  query {
     getAllLollies {
       topColor
       middleColor
